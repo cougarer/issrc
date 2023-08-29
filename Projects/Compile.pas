@@ -8181,9 +8181,6 @@ var
 
       try
         Sign(Filename);
-        if not InternalSignSetupE32(Filename, UnsignedFile, UnsignedFileSize,
-           SCompilerSignedFileContentsMismatch) then
-          AbortCompile(SCompilerSignToolSucceededButNoSignature);
       finally
         DeleteFile(Filename);
       end;
