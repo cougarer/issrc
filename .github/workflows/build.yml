@@ -20,19 +20,13 @@ jobs:
           ISSRC_BUILD_ENV_ZIP_PASSWORD: asd123456
           ISSRC_BUILD_ENV_ZIP_URL: "https://github.com/cougarer/Unity3DTrial01/blob/master/issrc-build-env.zip"
         run: |
-          echo "ISSRC_BUILD_ENV_ZIP_PASSWORD"
+          echo "123123 ISSRC_BUILD_ENV_ZIP_PASSWORD"
           echo "$env:ISSRC_BUILD_ENV_ZIP_PASSWORD"
-          echo "ISSRC_BUILD_ENV_ZIP_URL"
+          echo "123123 ISSRC_BUILD_ENV_ZIP_URL"
           echo "$env:ISSRC_BUILD_ENV_ZIP_URL"
-          (New-Object Net.WebClient).DownloadFile($env:ISSRC_BUILD_ENV_ZIP_URL, "issrc-build-env.zip")
-          & "C:\\Program Files\\7-Zip\\7z.exe" x -oissrc-build-env -pasd123456 issrc-build-env.zip
-          # if (!(Test-Path issrc-build-env\bin\dcc32.exe)) {
-          #   Write-Host "Failed to extract dcc32.exe"
-          #   Exit 1
-          # }
-          echo "123123pwd"
+          echo "123123 pwd"
           pwd
-          echo "123123ls"
+          echo "123123 ls"
           ls
           Remove-Item issrc-build-env.zip
           $DELPHIXEROOT = (Get-Item .\issrc-build-env).FullName
