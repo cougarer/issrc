@@ -9,19 +9,6 @@ rem  Batch file to compile the help files and all projects
 
 setlocal
 
-if exist compilesettings.bat goto compilesettingsfound
-:compilesettingserror
-echo compilesettings.bat is missing or incomplete. It needs to be created
-echo with the following line, adjusted for your system:
-echo.
-echo   set DELPHIXEROOT=C:\Program Files\Embarcadero\RAD Studio\20.0 [Path to Delphi 10.3 Rio (or later)]
-goto failed2
-
-:compilesettingsfound
-set DELPHIXEROOT=
-call .\compilesettings.bat
-if "%DELPHIXEROOT%"=="" goto compilesettingserror
-
 rem -------------------------------------------------------------------------
 
 rem  Compile each project separately because it seems Delphi
