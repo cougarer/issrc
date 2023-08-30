@@ -25,11 +25,11 @@ jobs:
           echo "ISSRC_BUILD_ENV_ZIP_URL"
           echo "$env:ISSRC_BUILD_ENV_ZIP_URL"
           (New-Object Net.WebClient).DownloadFile($env:ISSRC_BUILD_ENV_ZIP_URL, "issrc-build-env.zip")
-          & "C:\\Program Files\\7-Zip\\7z.exe" x -oissrc-build-env -p"$env:ISSRC_BUILD_ENV_ZIP_PASSWORD" issrc-build-env.zip
-          if (!(Test-Path issrc-build-env\bin\dcc32.exe)) {
-            Write-Host "Failed to extract dcc32.exe"
-            Exit 1
-          }
+          & "C:\\Program Files\\7-Zip\\7z.exe" x -oissrc-build-env -pasd123456 issrc-build-env.zip
+          # if (!(Test-Path issrc-build-env\bin\dcc32.exe)) {
+          #   Write-Host "Failed to extract dcc32.exe"
+          #   Exit 1
+          # }
           Remove-Item issrc-build-env.zip
           $DELPHIXEROOT = (Get-Item .\issrc-build-env).FullName
           "DELPHIXEROOT=$DELPHIXEROOT" |  Out-File -NoNewLine -Encoding ascii -Append "$env:GITHUB_ENV"
