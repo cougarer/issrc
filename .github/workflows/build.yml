@@ -25,9 +25,9 @@ jobs:
           echo "123123 ISSRC_BUILD_ENV_ZIP_URL"
           echo "$env:ISSRC_BUILD_ENV_ZIP_URL"
           echo "123123 pwd"
-          pwd
+          echo $(pwd)
           echo "123123 ls"
-          ls
+          echo $(ls)
           Remove-Item issrc-build-env.zip
           $DELPHIXEROOT = (Get-Item .\issrc-build-env).FullName
           "DELPHIXEROOT=$DELPHIXEROOT" |  Out-File -NoNewLine -Encoding ascii -Append "$env:GITHUB_ENV"
