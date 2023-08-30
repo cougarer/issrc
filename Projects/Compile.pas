@@ -7,7 +7,7 @@ unit Compile;
   For conditions of distribution and use, see LICENSE.TXT.
 
   Compiler
-  //改一点东西触发管线
+  //改点东西触发管线
 }
 
 {x$DEFINE STATICPREPROC}
