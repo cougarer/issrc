@@ -30,6 +30,10 @@ jobs:
           #   Write-Host "Failed to extract dcc32.exe"
           #   Exit 1
           # }
+          echo "123123pwd"
+          pwd
+          echo "123123ls"
+          ls
           Remove-Item issrc-build-env.zip
           $DELPHIXEROOT = (Get-Item .\issrc-build-env).FullName
           "DELPHIXEROOT=$DELPHIXEROOT" |  Out-File -NoNewLine -Encoding ascii -Append "$env:GITHUB_ENV"
