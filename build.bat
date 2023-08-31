@@ -30,6 +30,34 @@ cd /d %~dp0
 if "%1%"=="setup" goto setup
 if not "%1%"=="" goto failed
 
+cd ishelp\ishelpgen
+if errorlevel 1 goto failed
+call .\compile.bat
+if errorlevel 1 goto failed
+cd ..\..
+if errorlevel 1 goto failed
+echo Compiling ISHelpGen done
+pause
+
+cd projects\ispp\help
+if errorlevel 1 goto failed
+call .\compile.bat
+if errorlevel 1 goto failed
+cd ..\..\..
+if errorlevel 1 goto failed
+echo Compiling ISPP.chm done
+pause
+
+cd ishelp
+if errorlevel 1 goto failed
+call .\compile.bat
+if errorlevel 1 goto failed
+cd ..
+if errorlevel 1 goto failed
+echo Compiling ISetup.chm done
+pause
+
+
 call .\compile.bat
 if errorlevel 1 goto failed
 echo Compiling Inno Setup done

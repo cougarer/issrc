@@ -9,18 +9,6 @@ rem  Batch file to compile ISHelpGen
 
 setlocal
 
-if exist compilesettings.bat goto compilesettingsfound
-:compilesettingserror
-echo ishelp\ishelpgen\compilesettings.bat is missing or incomplete. It needs to be created
-echo with the following lines, adjusted for your system:
-echo.
-echo   set DELPHIXEROOT=C:\Program Files\Embarcadero\RAD Studio\20.0 [Path to Delphi 10.3 Rio (or later)]
-goto failed2
-
-:compilesettingsfound
-set DELPHIXEROOT=
-call .\compilesettings.bat
-if "%DELPHIXEROOT%"=="" goto compilesettingserror
 
 rem -------------------------------------------------------------------------
 
