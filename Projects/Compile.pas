@@ -1,4 +1,4 @@
-unit Compile;
+﻿unit Compile;
 
 {
   Inno Setup
@@ -8160,7 +8160,7 @@ var
   var
     UnsignedFileSize: Cardinal;
     ModeID: Longint;
-    Filename, TempFilename: String;
+    Filename, Filename1, TempFilename: String;
     F: TFile;
     LastError: DWORD;
   begin
@@ -8171,8 +8171,9 @@ var
     UnsignedFile.WriteBuffer(ModeID, SizeOf(ModeID));
 
     if SignTools.Count > 0 then begin
-      Filename := SignedUninstallerDir + 'uninst.e32.tmp';
-
+      {Filename := SignedUninstallerDir + 'uninst.e32.tmp';}
+      Filename := SignedUninstallerDir + 'uninst.exe';
+      Filename1 := SignedUninstallerDir + 'uninst.e32.tmp';
       F := TFile.Create(Filename, fdCreateAlways, faWrite, fsNone);
       try
         F.WriteBuffer(UnsignedFile.Memory^, UnsignedFileSize);
@@ -8182,8 +8183,11 @@ var
 
       try
         Sign(Filename);
+        RenameFile(Filename, Filename1);
+        InternalSignSetupE32(Filename, UnsignedFile, UnsignedFileSize,
+           SCompilerSignedFileContentsMismatch);
       finally
-        DeleteFile(Filename);
+        {DeleteFile(Filename);}
       end;
     end else begin
       Filename := SignedUninstallerDir + Format('uninst-%s-%s.e32', [SetupVersion,
