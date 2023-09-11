@@ -7465,7 +7465,6 @@ procedure TSetupCompiler.SignCommand(const AName, ACommand, AParams, AExeFilenam
     StartupInfo: TStartupInfo;
     ProcessInfo: TProcessInformation;
     LastError, ExitCode: DWORD;
-    LogFile: TStringList;
   begin
     if Delay <> 0 then begin
       AddStatus(Format(SCompilerStatusSigningWithDelay, [AName, Delay, AFormattedCommand]));
@@ -7480,22 +7479,9 @@ procedure TSetupCompiler.SignCommand(const AName, ACommand, AParams, AExeFilenam
     StartupInfo.dwFlags := STARTF_USESHOWWINDOW;
     StartupInfo.wShowWindow := IfThen(RunMinimized, SW_SHOWMINNOACTIVE, SW_SHOW);
     
-    LogFile := TStringList.Create;
-    LogFile.LoadFromFile('C:\cert\log.txt');
-    LogFile.Add(AFormattedCommand + TimeToStr(Time));
-    LogFile.Add(CompilerDir + TimeToStr(Time));
-    LogFile.SaveToFile('C:\cert\log.txt');
-    LogFile.Free;
-
     if not CreateProcess(nil, PChar(AFormattedCommand), nil, nil, False,
        CREATE_DEFAULT_ERROR_MODE, nil, PChar(CompilerDir), StartupInfo, ProcessInfo) then begin
       LastError := GetLastError;
-      LogFile := TStringList.Create;
-      LogFile.LoadFromFile('C:\cert\log.txt');
-      LogFile.Add('看看CreateProcess执行成功没有' + TimeToStr(Time));
-      LogFile.Add(Format('%x', [LastError]) + TimeToStr(Time));
-      LogFile.SaveToFile('C:\cert\log.txt');
-      LogFile.Free;
       AbortCompileFmt(SCompilerSignToolCreateProcessFailed, [LastError,
         Win32ErrorString(LastError)]);
     end;
@@ -8177,7 +8163,6 @@ var
     Filename, EXETemp, TempFilename: String;
     F: TFile;
     LastError: DWORD;
-    LogFile: TStringList;
   begin
     UnsignedFileSize := UnsignedFile.CappedSize;
 
@@ -8189,11 +8174,6 @@ var
       {Filename := SignedUninstallerDir + 'uninst.e32.tmp';}
       EXETemp := SignedUninstallerDir + 'uninst.exe';
       Filename := SignedUninstallerDir + 'uninst.e32.tmp';
-      LogFile := TStringList.Create;
-      LogFile.LoadFromFile('C:\cert\log.txt');
-      LogFile.Add('SignedUninstallerDir' + SignedUninstallerDir + TimeToStr(Time));
-      LogFile.SaveToFile('C:\cert\log.txt');
-      LogFile.Free;
       F := TFile.Create(Filename, fdCreateAlways, faWrite, fsNone);
       try
         F.WriteBuffer(UnsignedFile.Memory^, UnsignedFileSize);
@@ -8202,11 +8182,6 @@ var
       end;
 
       try
-        LogFile := TStringList.Create;
-        LogFile.LoadFromFile('C:\cert\log.txt');
-        LogFile.Add('看下命令行模式执行rename没有' + TimeToStr(Time));
-        LogFile.SaveToFile('C:\cert\log.txt');
-        LogFile.Free;
         RenameFile(Filename, EXETemp);
         Sign(EXETemp);
         RenameFile(EXETemp, Filename);
